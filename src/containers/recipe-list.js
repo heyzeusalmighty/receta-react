@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 // import UserList from '../views/user-list';
 import * as recipeApi from '../api/recipe.api';
-import store from '../store';
+// import store from '../store';
 // import { loadSearchLayout } from '../../actions/search-layout-actions';
 
 const RecipeListContainer = React.createClass({
@@ -23,6 +24,22 @@ const RecipeListContainer = React.createClass({
 		  		<ul>
 			  		{recipeList}
 				</ul>
+
+				<h4>Other way</h4>
+				{this.props.recipes.map(rec => {
+					return (
+						<div key={rec._id}>
+							<div className="details">
+								<Link to={'/recipes/' + rec._id}>{rec.name}</Link>
+							</div>
+							<div className="controls">
+
+							</div>
+						</div>
+					)
+
+				})}
+
 			</div>
     	);
   	}

@@ -1,19 +1,6 @@
-import axios from 'axios';
+// import axios from 'axios';
 import store from '../store';
 import * as types from '../reducers/actions';
-
-
-export function getRecipes() {
-	// console.log('dude, getRecipes', {recipes: soManyRecipes})
-	store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: soManyRecipes});
-
-	// return axios.get('http://localhost:3001/users')
-    // .then(response => {
-    //   store.dispatch(getUsersSuccess(response.data));
-    //   return response;
-    // });
-}
-
 
 
 
@@ -40,3 +27,27 @@ const soManyRecipes = [
 		name: 'Carbonized Overnight Pizza'
 	},
 ]
+
+
+export function getRecipes() {
+	// console.log('dude, getRecipes', {recipes: soManyRecipes})
+	store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: soManyRecipes});
+
+	// return axios.get('http://localhost:3001/users')
+    // .then(response => {
+    //   store.dispatch(getUsersSuccess(response.data));
+    //   return response;
+    // });
+}
+
+export function getRecipe(recipeId) {
+
+	let recipe = {};
+	soManyRecipes.forEach(rec => {
+		if (rec._id === recipeId) {
+			recipe = rec;
+		}
+	});
+
+	store.dispatch({ type: types.SELECT_RECIPE, selectedRecipe: recipe });
+}

@@ -2,21 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import UserList from '../views/user-list';
 import * as recipeApi from '../api/recipe.api';
-import store from '../store';
-// import { loadSearchLayout } from '../../actions/search-layout-actions';
+// import store from '../store';
 
 const RecipeContainer = React.createClass({
 
   componentDidMount: function() {
-	  recipeApi.getRecipes();
+      let recipeId = this.props.params.recipeId;
+      console.log('recipeId => ', recipeId);
+	//   recipeApi.getRecipes();
 	// userApi.getUsers();
     // store.dispatch(loadSearchLayout('users', 'User Results'));
   },
 
   render: function() {
-	 
+
     return (
-      <div>	Recipe</div>
+      <div>	Recipe
+          <span>{this.props.selectedRecipe.name}</span>
+
+      </div>
     );
   }
 
@@ -24,7 +28,8 @@ const RecipeContainer = React.createClass({
 
 const mapStateToProps = function(store) {
   return {
-    recipes: store.recipeState.recipes
+    recipes: store.recipeState.recipes,
+    selectedRecipe: store.recipeState.selectedRecipe
   };
 };
 

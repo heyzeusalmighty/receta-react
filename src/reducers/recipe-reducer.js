@@ -2,20 +2,21 @@ import * as types from './actions';
 import _ from 'lodash';
 
 const initialState = {
-	recipes: []
+	recipes: [],
+	selectedRecipe: {}
 }
 
 const recipeReducer = function(state = initialState, action) {
 	switch(action.type) {
 		case types.GET_RECIPES_SUCCESS:
-			console.log('GET_RECIPES_SUCCESS', action);
 			return Object.assign({}, state, { recipes: action.recipes });
 
+		case types.SELECT_RECIPE:
+			return Object.assign({}, state, { selectedRecipe: action.selectedRecipe });
 
-		return state;
+		default:
+			return state;
 	}
-
-	return state;
 }
 
 export default recipeReducer;

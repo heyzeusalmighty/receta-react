@@ -1,3 +1,5 @@
 
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_RECIPES_SUCCESS = 'GET_RECIPES_SUCCESS';
+
+export const SELECT_RECIPE = 'SELECT_RECIPE';
