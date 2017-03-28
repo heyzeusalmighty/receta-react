@@ -7,11 +7,8 @@ import * as recipeApi from '../api/recipe.api';
 const RecipeContainer = React.createClass({
 
   componentDidMount: function() {
-      let recipeId = this.props.params.recipeId;
-      console.log('recipeId => ', recipeId);
-	//   recipeApi.getRecipes();
-	// userApi.getUsers();
-    // store.dispatch(loadSearchLayout('users', 'User Results'));
+      let recipeId = this.props.params.recipeId;      
+      recipeApi.getRecipe(recipeId);
   },
 
   render: function() {

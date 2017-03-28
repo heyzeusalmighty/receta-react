@@ -1,17 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router';
+import MyAppBar from '../components/MyAppBar';
 
-export default function(props) {
-	return (
+export default (props) =>
+	(
 		<div className="app">
-			<div className="header">
-				<ul>
-					<li><Link to="/" activeClassName="active">Home</Link></li>
-				</ul>
-			</div>
+			<MyAppBar />
 			<main>
 				{props.children}
 			</main>
 		</div>
 	)
-}
+
+	//
+	//

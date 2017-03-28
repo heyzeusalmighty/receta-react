@@ -41,13 +41,12 @@ export function getRecipes() {
 }
 
 export function getRecipe(recipeId) {
-
-	let recipe = {};
+	let recId = parseInt(recipeId, 10);
 	soManyRecipes.forEach(rec => {
-		if (rec._id === recipeId) {
-			recipe = rec;
+		if (rec._id === recId) {
+			store.dispatch({ type: types.SELECT_RECIPE, selectedRecipe: rec });
 		}
 	});
 
-	store.dispatch({ type: types.SELECT_RECIPE, selectedRecipe: recipe });
+
 }

@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-// import UserList from '../views/user-list';
 import * as recipeApi from '../api/recipe.api';
-// import store from '../store';
-// import { loadSearchLayout } from '../../actions/search-layout-actions';
+// import { Button } from 'react-toolbox/lib/button';
+
 
 const RecipeListContainer = React.createClass({
 
@@ -33,7 +32,7 @@ const RecipeListContainer = React.createClass({
 								<Link to={'/recipes/' + rec._id}>{rec.name}</Link>
 							</div>
 							<div className="controls">
-
+								<button>A</button>
 							</div>
 						</div>
 					)
