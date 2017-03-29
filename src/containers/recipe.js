@@ -2,24 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import UserList from '../views/user-list';
 import * as recipeApi from '../api/recipe.api';
-// import store from '../store';
+import store from '../store';
+import * as types from '../reducers/actions';
 
 const RecipeContainer = React.createClass({
 
-  componentDidMount: function() {
-      let recipeId = this.props.params.recipeId;      
-      recipeApi.getRecipe(recipeId);
-  },
+    componentWillMount: function() {
+        this.setState({
+            selectedRecipe: { recipeName: ''}
+        });
+        let recipeId = this.props.params.recipeId;
+        store.dispatch({ type: types.SELECT_RECIPE, recipeId: recipeId });
+    },
 
-  render: function() {
+    render: function() {
 
-    return (
-      <div>	Recipe
-          <span>{this.props.selectedRecipe.name}</span>
+        return (
+            <div>	Recipe
+                <span>{this.props.selectedRecipe.recipeName}</span>
 
-      </div>
-    );
-  }
+            </div>
+        );
+    }
 
 });
 

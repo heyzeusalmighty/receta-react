@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 import store from '../store';
 import * as types from '../reducers/actions';
 
@@ -30,20 +30,20 @@ const soManyRecipes = [
 
 
 export function getRecipes() {
-	// console.log('dude, getRecipes', {recipes: soManyRecipes})
-	store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: soManyRecipes});
+	// store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: soManyRecipes});
 
-	// return axios.get('http://localhost:3001/users')
-    // .then(response => {
-    //   store.dispatch(getUsersSuccess(response.data));
-    //   return response;
-    // });
+	return axios.get('http://localhost:9000/api/recipes')
+    .then(response => {
+		store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: response.data.recipes });
+		return response;
+    });
 }
 
 export function getRecipe(recipeId) {
-	let recId = parseInt(recipeId, 10);
+	// let recId = parseInt(recipeId, 10);
 	soManyRecipes.forEach(rec => {
-		if (rec._id === recId) {
+		if (rec._id === recipeId) {
+			console.log('you found it')
 			store.dispatch({ type: types.SELECT_RECIPE, selectedRecipe: rec });
 		}
 	});
