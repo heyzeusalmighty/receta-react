@@ -25,6 +25,20 @@ const RecipeListContainer = React.createClass({
 				</ul>
 
 				<h4>Other way</h4>
+				<table className="table">
+					<tbody>
+					{this.props.recipes.map(rec =>
+						(
+							<tr key={rec._id}>
+								<td><Link to={'/recipes/' + rec._id}>{rec.name}</Link></td>
+								<td><button className="btn btn-default">COOL MAN</button></td>
+							</tr>
+						)
+					)}
+					</tbody>
+				</table>
+
+
 				{this.props.recipes.map(rec => {
 					return (
 						<div key={rec._id}>

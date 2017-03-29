@@ -5,7 +5,7 @@ export default (props) =>
 	(
 		<div className="app">
 			<MyAppBar />
-			<main>
+			<main className="container">
 				{props.children}
 			</main>
 		</div>
