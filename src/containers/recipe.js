@@ -1,38 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import store from '../store';
 import * as types from '../reducers/actions';
 import ViewRecipe from '../components/view-recipe'
+import EditRecipe from './edit-recipe';
 
-const RecipeContainer = React.createClass({
 
-    getInitialState: () => {        
-        return { showEdit: false }
-    },
-
-    editOnClick: () => {
-        this.setState({
-            showEdit: true
-        });
-        console.log('you are editing now')
-    },
-
-    cancelOnClick: () => {
-        this.setState({
+class RecipeContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedRecipe: { recipeName: ''},
             showEdit: false
-        });
-    },
+        };
 
-    componentWillMount: function() {
-        this.setState({
-            selectedRecipe: { recipeName: ''}
-        });
         let recipeId = this.props.params.recipeId;
         store.dispatch({ type: types.SELECT_RECIPE, recipeId: recipeId });
-    },
 
-    render: function() {
+        this.editOnClick = this.editOnClick.bind(this);
+        this.saveOnClick = this.saveOnClick.bind(this);
+        this.cancelOnClick = this.cancelOnClick.bind(this);
+    }
 
+    editOnClick(coocoo) {
+        this.setState({ showEdit: true });
+        console.log('coocoo =>', coocoo)
+    }
+
+    cancelOnClick(message) {
+        console.log('cancel => ', message);
+        this.setState({ showEdit: false });
+    }
+
+    saveOnClick(message) {
+        console.log('saving => ', message);
+        this.setState({ showEdit: false });
+    }    
+
+    render() {
         let instructions = (this.props.selectedRecipe.instructions)
             ? this.props.selectedRecipe.instructions
             : [];
@@ -53,30 +59,23 @@ const RecipeContainer = React.createClass({
                         { this.props.selectedRecipe.recipeName }
                     </h4>
                 </div>
-
-
-
-
-
                 { this.state.showEdit
-                    ? <span>dude</span>
+                    ? <EditRecipe
+                        saveClick={this.saveOnClick}
+                        cancelClick={this.cancelOnClick} />
                     : <ViewRecipe
                         selectedRecipe={this.props.selectedRecipe}
                         instructions={instructions}
                         ingredients={ingredients}
                         tags={tags}
-                        editClick={this.editOnClick} />}
+                        editClick={this.editOnClick}
+                        goBack={browserHistory.goBack} />
+                }
             </div>
-
-
-
-
-
-
         );
     }
+}
 
-});
 
 const mapStateToProps = function(store) {
   return {

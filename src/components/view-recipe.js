@@ -4,7 +4,8 @@ import React from 'react';
 const RecipeView = (props) => (
 	<div className="panel-body">
 
-		<button className="btn btn-primary" onClick={props.editClick}>Edit</button>
+		<button className="btn btn-default" onClick={props.goBack}>Back</button>
+		<button className="btn btn-primary" onClick={() => props.editClick('cool man')}>Edit</button>
 
 		<dl className="dl-horizontal">
 			<dt>Description</dt>
@@ -38,8 +39,8 @@ const RecipeView = (props) => (
 			<div className="col-md-4" key={ing._id}>
 				<ul className="list-group" >
 					<li className="list-group-item active">{ing.title}</li>
-					{ing.ingredients.map(ingredient => (
-						<li className="list-group-item" key={ingredient}>{ingredient}</li>
+					{ing.ingredients.map((ingredient, idx) => (
+						<li className="list-group-item" key={idx + ingredient}>{ingredient}</li>
 					))}
 				</ul>
 			</div>
