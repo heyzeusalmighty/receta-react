@@ -8,7 +8,10 @@ const initialState = {
 }
 
 const dummyRecipe = {
-	recipeName: 'dummy'
+	recipeName: 'dummy',
+	tags: [],
+	instructions: [],
+	ingredients: []
 }
 
 

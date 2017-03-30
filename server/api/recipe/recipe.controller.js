@@ -21,6 +21,12 @@ exports.getAllRecipes = function(req, res) {
             console.log('dang', rec.recipeName)
         }
 
+        rec.ingredients.forEach(ing => {
+            if (ing._id) {
+                ing._id = ing._id.$oid;
+            } 
+        })
+
     })
 
     res.status(200).json({recipes: dummyRecipes})
