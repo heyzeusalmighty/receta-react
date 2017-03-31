@@ -18,6 +18,35 @@ class EditRecipeContainer extends React.Component {
 	}
 
 	render() {
+
+
+		// this.props.selectedRecipe.ingredients.map(ing => (
+		// 		<div className="form-group">
+		// 			<label htmlFor="ingredientTitle">Title</label>
+		// 			<input className="form-control"
+		// 				id="ingredientTitle"
+		// 				ref={input => this.ingredients[idx].title = input}
+		// 				defaultValue={this.props.selectedRecipe.ingredients[idx].title} />
+		// 		</div>
+		// 	)
+		// )
+
+		this.ingredients = [];
+		let ingredientsElement = this.props.selectedRecipe.ingredients.map((ing, idx) => {
+			console.log('dude ', idx)
+			return (
+				<div className="form-group" key={idx}>
+					<label htmlFor="ingredientTitle">Title</label>
+					<input className="form-control"
+						id="ingredientTitle"
+						ref={input => this.ingredients[idx].title = input}
+						defaultValue={ing.title} />
+				</div>
+			)
+		});
+
+
+
 		return (
 			<div className="panel-body">
 
@@ -46,17 +75,7 @@ class EditRecipeContainer extends React.Component {
 					</div>
 
 					<h4>Ingredients</h4>
-					this.props.selectedRecipe.ingredients.map((ing, idx) =>
-						(
-							<div className="form-group">
-								<label htmlFor="ingredientTitle">Title</label>
-								<input className="form-control"
-									id="ingredientTitle"
-									ref={input => this.ingredients[idx].title = input}
-									defaultValue={this.props.selectedRecipe.ingredients[idx].title} />
-							</div>
-						)
-					)
+					<ul>{ ingredientsElement }</ul>
 
 
 

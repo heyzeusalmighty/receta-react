@@ -5,36 +5,36 @@ const chalk = require('chalk');
 
 const dummyRecipes = require('./dummyData');
 
-// var db = mongoose.connection;
-// mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+mongoose.Promise = global.Promise;
 
-// var Recipe = require('../../models/recipe.model.js');
+var Recipe = require('../../models/recipe.model.js');
 
 
 
 exports.getAllRecipes = function(req, res) {
 
-    dummyRecipes.forEach(rec => {
-        if(rec._id !== undefined) {
-            rec._id = rec._id.$oid;
-        } else {
-            console.log('dang', rec.recipeName)
-        }
-
-        rec.ingredients.forEach(ing => {
-            if (ing._id) {
-                ing._id = ing._id.$oid;
-            } 
-        })
-
-    })
-
-    res.status(200).json({recipes: dummyRecipes})
-
-    // Recipe.find({}, (err, docs) => {
-    //     if (err) return console.error(err);
-    //     res.json(docs);
+    // dummyRecipes.forEach(rec => {
+    //     if(rec._id !== undefined) {
+    //         rec._id = rec._id.$oid;
+    //     } else {
+    //         console.log('dang', rec.recipeName)
+    //     }
+    //
+    //     rec.ingredients.forEach(ing => {
+    //         if (ing._id) {
+    //             ing._id = ing._id.$oid;
+    //         }
+    //     })
+    //
     // })
+    //
+    // res.status(200).json({recipes: dummyRecipes})
+
+    Recipe.find({}, (err, docs) => {
+        if (err) return console.error(err);
+        res.json({ recipes: docs});
+    })
 };
 
 

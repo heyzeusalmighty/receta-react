@@ -12,10 +12,11 @@ app.use('/', express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// var mongoose = require('mongoose');
-// mongoose.connect(config.DB_ADDRESS);
-// var db = mongoose.connection;
-// mongoose.Promise = global.Promise;
+var mongoose = require('mongoose');
+console.log('DB_ADDRESS', config.DB_ADDRESS)
+mongoose.connect(config.DB_ADDRESS);
+var db = mongoose.connection;
+mongoose.Promise = global.Promise;
 
 require('./api')(app);
 

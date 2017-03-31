@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-// import * as recipeApi from '../api/recipe.api';
+import * as recipeApi from '../api/recipe.api';
 // import { Button } from 'react-toolbox/lib/button';
 
 
@@ -11,11 +11,16 @@ const RecipeListContainer = React.createClass({
 		// recipeApi.getRecipes();
 	},
 
+	addNewRecipe: function() {
+		recipeApi.addNewRecipe();
+	},
+
   	render: function() {
     	return (
 			<div>
 		  		<h3>Recipes</h3>
 
+			<button className="btn btn-success" onClick={this.addNewRecipe}>ADD</button>
 				<table className="table">
 					<tbody>
 					{this.props.recipes.map(rec =>
