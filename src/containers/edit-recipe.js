@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import IngredientLine from '../components/IngredientLine';
-import IngredientTitle from '../components/IngredientTitle';
+
+import IngredientGroup from '../components/IngredientGroup';
 
 
 
@@ -18,6 +18,14 @@ class EditRecipeContainer extends React.Component {
 		console.log('recipeName', this.props.selectedRecipe);
 	}
 
+    handleIngredientLineChange(fieldId, value) {
+        // let newState = {};
+        // newState[fieldId] = value;
+        // this.setState(newState);
+        console.log('fieldId: ', fieldId, ' :: value : ', value);
+
+
+    }
 
 
     handleTitle = (event) => {
@@ -33,16 +41,15 @@ class EditRecipeContainer extends React.Component {
 		this.ingredients = [];
 		let ingredientsElement = this.props.selectedRecipe.ingredients.map((ing, idx) => {
 
-            let ingLines = ing.ingredients.map((ingLine, ingIndex) => (
-                <IngredientLine ingredient={ingLine} key={ingIndex} />
-            ));
+            let props = {
+        		id: idx,
+        		onChange: this.handleIngredientGroupChange,
+        		ingredients: ing.ingredients,
+                title: ing.title
+        	}
 
-
-			return (
-                <div key={idx}>
-    				<IngredientTitle title={ing.title} />
-                    {ingLines}
-                </div>
+            return (
+                <IngredientGroup key={idx} {...props} />
 			)
 		});
 
