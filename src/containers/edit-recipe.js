@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
+import IngredientLine from '../components/IngredientLine';
+import IngredientTitle from '../components/IngredientTitle';
+
 
 
 class EditRecipeContainer extends React.Component {
@@ -11,37 +14,35 @@ class EditRecipeContainer extends React.Component {
 
 	handleSubmit(event) {
 		// console.log('event.target.value', event.target.value);
-
-		console.log('recipeName', this.recipeName);
-
-		event.preventDefault();
+    	event.preventDefault();
+		console.log('recipeName', this.props.selectedRecipe);
 	}
+
+
+
+    handleTitle = (event) => {
+        // this.setState({ selectedRecipe.title = event.target.value });
+
+    }
 
 	render() {
 
 
-		// this.props.selectedRecipe.ingredients.map(ing => (
-		// 		<div className="form-group">
-		// 			<label htmlFor="ingredientTitle">Title</label>
-		// 			<input className="form-control"
-		// 				id="ingredientTitle"
-		// 				ref={input => this.ingredients[idx].title = input}
-		// 				defaultValue={this.props.selectedRecipe.ingredients[idx].title} />
-		// 		</div>
-		// 	)
-		// )
+
 
 		this.ingredients = [];
 		let ingredientsElement = this.props.selectedRecipe.ingredients.map((ing, idx) => {
-			console.log('dude ', idx)
+
+            let ingLines = ing.ingredients.map((ingLine, ingIndex) => (
+                <IngredientLine ingredient={ingLine} key={ingIndex} />
+            ));
+
+
 			return (
-				<div className="form-group" key={idx}>
-					<label htmlFor="ingredientTitle">Title</label>
-					<input className="form-control"
-						id="ingredientTitle"
-						ref={input => this.ingredients[idx].title = input}
-						defaultValue={ing.title} />
-				</div>
+                <div key={idx}>
+    				<IngredientTitle title={ing.title} />
+                    {ingLines}
+                </div>
 			)
 		});
 
