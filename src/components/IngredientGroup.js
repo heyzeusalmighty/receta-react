@@ -8,8 +8,12 @@ export default class IngredientGroup extends React.Component {
 		this.props.groupChange(this.props.id, ingredientId, value);
     }
 
-	handleTitleChange = (title) => {		
+	handleTitleChange = (title) => {
 		this.props.titleChange(this.props.id, title);
+	}
+
+	handleIngredientRemoval = (ingredientId) => {
+		this.props.ingredientRemoval(this.props.id, ingredientId);
 	}
 
 
@@ -19,6 +23,7 @@ export default class IngredientGroup extends React.Component {
 			let props = {
 				id: idx,
 				onChange: this.handleIngredientLineChange,
+				ingredientRemoval: this.handleIngredientRemoval,
 				ingredient: ing
 			}
 			return (

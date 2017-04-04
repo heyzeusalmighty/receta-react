@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import store from '../store';
+import * as types from '../reducers/actions'
+import store from '../store';
 
 import IngredientGroup from '../components/IngredientGroup';
 
@@ -9,7 +10,7 @@ import IngredientGroup from '../components/IngredientGroup';
 class EditRecipeContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { selectedRecipe: props.selectedRecipe};        
+        this.state = { selectedRecipe: props.selectedRecipe};
 	}
 
 	handleSubmit(event) {
@@ -18,7 +19,6 @@ class EditRecipeContainer extends React.Component {
 	}
 
     handleIngredientGroupChange = (groupId, ingredientId, value) => {
-        // console.log('IngredientGroupChange => groupId : ', groupId, ' :: ingredientId: ', ingredientId, ' :: value : ', value);
         let recipe = Object.assign({}, this.state.selectedRecipe);
         recipe.ingredients[groupId].ingredients[ingredientId] = value;
         this.setState({ selectedRecipe: recipe});
@@ -31,6 +31,16 @@ class EditRecipeContainer extends React.Component {
         this.setState({ selectedRecipe: recipe });
     }
 
+    ingredientRemoval = (groupId, ingredientId) => {
+        let recipe = Object.assign({}, this.state.selectedRecipe);
+        recipe.ingredients[groupId].ingredients.splice(ingredientId, 1);
+        this.setState({ selectedRecipe: recipe });
+    }
+
+    saveEdit = () => {
+        store.dispatch({ type: types.SAVE_EDIT, recipe: this.state.selectedRecipe });
+    }
+
 	render() {
 		this.ingredients = [];
 		let ingredientsElement = this.state.selectedRecipe.ingredients.map((ing, idx) => {
@@ -39,6 +49,7 @@ class EditRecipeContainer extends React.Component {
                 groupChange: this.handleIngredientGroupChange,
                 titleChange: this.handleTitleChange,
         		ingredients: ing.ingredients,
+                ingredientRemoval: this.ingredientRemoval,
                 title: ing.title
         	}
 
@@ -46,8 +57,6 @@ class EditRecipeContainer extends React.Component {
                 <IngredientGroup key={idx} {...props} />
 			)
 		});
-
-
 
 		return (
 			<div className="panel-body">
