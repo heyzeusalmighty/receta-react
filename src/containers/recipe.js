@@ -18,25 +18,25 @@ class RecipeContainer extends React.Component {
         let recipeId = this.props.params.recipeId;
         store.dispatch({ type: types.SELECT_RECIPE, recipeId: recipeId });
 
-        this.editOnClick = this.editOnClick.bind(this);
-        this.saveOnClick = this.saveOnClick.bind(this);
-        this.cancelOnClick = this.cancelOnClick.bind(this);
+        // this.editOnClick = this.editOnClick.bind(this);
+        // this.saveOnClick = this.saveOnClick.bind(this);
+        // this.cancelOnClick = this.cancelOnClick.bind(this);
     }
 
-    editOnClick(coocoo) {
+    editOnClick = (coocoo) => {
         this.setState({ showEdit: true });
         console.log('coocoo =>', coocoo)
     }
 
-    cancelOnClick(message) {
+    cancelOnClick = (message) => {
         console.log('cancel => ', message);
         this.setState({ showEdit: false });
     }
 
-    saveOnClick(message) {
+    saveOnClick = (message) => {
         console.log('saving => ', message);
         this.setState({ showEdit: false });
-    }    
+    }
 
     render() {
         let instructions = (this.props.selectedRecipe.instructions)

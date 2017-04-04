@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
+// import store from '../store';
 
 import IngredientGroup from '../components/IngredientGroup';
 
@@ -9,41 +9,35 @@ import IngredientGroup from '../components/IngredientGroup';
 class EditRecipeContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { selectedRecipe: props.selectedRecipe};
+        this.state = { selectedRecipe: props.selectedRecipe};        
 	}
 
 	handleSubmit(event) {
-		// console.log('event.target.value', event.target.value);
     	event.preventDefault();
 		console.log('recipeName', this.props.selectedRecipe);
 	}
 
-    handleIngredientLineChange(fieldId, value) {
-        // let newState = {};
-        // newState[fieldId] = value;
-        // this.setState(newState);
-        console.log('fieldId: ', fieldId, ' :: value : ', value);
-
-
+    handleIngredientGroupChange = (groupId, ingredientId, value) => {
+        // console.log('IngredientGroupChange => groupId : ', groupId, ' :: ingredientId: ', ingredientId, ' :: value : ', value);
+        let recipe = Object.assign({}, this.state.selectedRecipe);
+        recipe.ingredients[groupId].ingredients[ingredientId] = value;
+        this.setState({ selectedRecipe: recipe});
     }
 
 
-    handleTitle = (event) => {
-        // this.setState({ selectedRecipe.title = event.target.value });
-
+    handleTitleChange = (groupId, newTitle) => {
+        let recipe = Object.assign({}, this.state.selectedRecipe);
+        recipe.ingredients[groupId].title = newTitle;
+        this.setState({ selectedRecipe: recipe });
     }
 
 	render() {
-
-
-
-
 		this.ingredients = [];
-		let ingredientsElement = this.props.selectedRecipe.ingredients.map((ing, idx) => {
-
+		let ingredientsElement = this.state.selectedRecipe.ingredients.map((ing, idx) => {
             let props = {
         		id: idx,
-        		onChange: this.handleIngredientGroupChange,
+                groupChange: this.handleIngredientGroupChange,
+                titleChange: this.handleTitleChange,
         		ingredients: ing.ingredients,
                 title: ing.title
         	}
@@ -75,28 +69,19 @@ class EditRecipeContainer extends React.Component {
 				<form onSubmit={this.handleSubmit}>
 					<div className="form-group">
 						<label htmlFor="recipeName">Recipe Name</label>
-						<input className="form-control" id="recipeName" ref={input => this.recipeName = input} defaultValue={this.props.selectedRecipe.recipeName} />
+						<input className="form-control" id="recipeName" ref={input => this.recipeName = input} defaultValue={this.state.selectedRecipe.recipeName} />
 					</div>
 					<div className="form-group">
 						<label htmlFor="servingSize">Serving Size</label>
-						<input className="form-control" id="servingSize" ref={input => this.servingSize = input} defaultValue={this.props.selectedRecipe.servingSize} />
+						<input className="form-control" id="servingSize" ref={input => this.servingSize = input} defaultValue={this.state.selectedRecipe.servingSize} />
 					</div>
 
 					<h4>Ingredients</h4>
 					<ul>{ ingredientsElement }</ul>
 
-
-
 					<input type="submit" className="btn btn-default" value="Submit" />
 				</form>
-
-
-
-
-
-
 			</div>
-
 		)
 	}
 
@@ -110,9 +95,3 @@ const mapStateToProps = function(store){
 
 
 export default connect(mapStateToProps)(EditRecipeContainer)
-
-// <input className="form-control" id="exampleInputEmail1" value={this.state.selectedRecipe.recipeName} onChange={this.handleChange} />
-// <button className="btn btn-danger" onClick{() => this.props.cancelClick('cool')}>
-// 	CANCEL
-// </button>
-// Editing recipes => { this.props.selectedRecipe.recipeName }
