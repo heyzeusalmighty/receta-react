@@ -4,6 +4,7 @@ import * as types from '../reducers/actions'
 import store from '../store';
 
 import IngredientGroup from '../components/IngredientGroup';
+import InstructionLine from '../components/InstructionLine';
 
 
 
@@ -37,6 +38,24 @@ class EditRecipeContainer extends React.Component {
         this.setState({ selectedRecipe: recipe });
     }
 
+	handleInstructionChange = (instructionId, value) => {
+		let recipe = Object.assign({}, this.state.selectedRecipe);
+		recipe.instructions[instructionId].instruction = value;
+		this.setState({ selectedRecipe: recipe });
+	}
+
+	handleInstructionDelete = (instructionId) => {
+		let recipe = Object.assign({}, this.state.selectedRecipe);
+		recipe.instructions.splice(instructionId, 1);
+		this.setState({ selectedRecipe: recipe });
+	}
+
+	handleInstructionAdd = () => {
+		let recipe = Object.assign({}, this.state.selectedRecipe);
+		recipe.instructions.push({ id: recipe.instructions.length, instruction: '' });
+		this.setState({ selectedRecipe: recipe });
+	}
+
     saveEdit = () => {
         store.dispatch({ type: types.SAVE_EDIT, recipe: this.state.selectedRecipe });
     }
@@ -57,6 +76,19 @@ class EditRecipeContainer extends React.Component {
                 <IngredientGroup key={idx} {...props} />
 			)
 		});
+
+		let instructionsElement = this.state.selectedRecipe.instructions.map((ins) => {
+			let props = {
+				id: ins.id,
+				instruction: ins.instruction,
+				instructionChange: this.handleInstructionChange,
+				instructionDelete: this.handleInstructionDelete
+			};
+
+			return (
+				<InstructionLine key={ins.id} {...props} />
+			)
+		})
 
 		return (
 			<div className="panel-body">
@@ -87,6 +119,17 @@ class EditRecipeContainer extends React.Component {
 
 					<h4>Ingredients</h4>
 					<ul>{ ingredientsElement }</ul>
+
+					<h4>
+						<button className="btn btn-success" type="button" onClick={this.handleInstructionAdd}>
+							<i className="glyphicon glyphicon-plus"></i>
+						</button> 
+						&nbsp;&nbsp;&nbsp;
+					
+						Instructions</h4>
+					
+					{ instructionsElement }
+					
 
 					<input type="submit" className="btn btn-default" value="Submit" />
 				</form>
