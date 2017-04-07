@@ -52,13 +52,21 @@ class EditRecipeContainer extends React.Component {
 
 	handleInstructionAdd = () => {
 		let recipe = Object.assign({}, this.state.selectedRecipe);
-		recipe.instructions.push({ id: recipe.instructions.length, instruction: '' });
+		recipe.instructions.push({ id: recipe.instructions.length + 1, instruction: '' });
 		this.setState({ selectedRecipe: recipe });
 	}
+
+    handleIngredientAdd = (groupId) => {
+        let recipe = Object.assign({}, this.state.selectedRecipe);
+		recipe.ingredients[groupId].ingredients.push('dude');
+		this.setState({ selectedRecipe: recipe });
+    }
 
     saveEdit = () => {
         store.dispatch({ type: types.SAVE_EDIT, recipe: this.state.selectedRecipe });
     }
+
+
 
 	render() {
 		this.ingredients = [];
@@ -69,11 +77,12 @@ class EditRecipeContainer extends React.Component {
                 titleChange: this.handleTitleChange,
         		ingredients: ing.ingredients,
                 ingredientRemoval: this.ingredientRemoval,
+                addNewIngredient: this.handleIngredientAdd,
                 title: ing.title
         	}
 
             return (
-                <IngredientGroup key={idx} {...props} />
+                <IngredientGroup  key={idx} {...props} />
 			)
 		});
 
@@ -118,18 +127,21 @@ class EditRecipeContainer extends React.Component {
 					</div>
 
 					<h4>Ingredients</h4>
-					<ul>{ ingredientsElement }</ul>
+                    <div className="row">
+                        { ingredientsElement }
+                    </div>
+					<ul></ul>
 
 					<h4>
 						<button className="btn btn-success" type="button" onClick={this.handleInstructionAdd}>
 							<i className="glyphicon glyphicon-plus"></i>
-						</button> 
+						</button>
 						&nbsp;&nbsp;&nbsp;
-					
+
 						Instructions</h4>
-					
+
 					{ instructionsElement }
-					
+
 
 					<input type="submit" className="btn btn-default" value="Submit" />
 				</form>

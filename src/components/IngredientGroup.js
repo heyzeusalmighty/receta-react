@@ -16,6 +16,10 @@ export default class IngredientGroup extends React.Component {
 		this.props.ingredientRemoval(this.props.id, ingredientId);
 	}
 
+	handleIngredientAdd = () => {
+		this.props.addNewIngredient(this.props.id);
+	}
+
 
 	render() {
 
@@ -32,10 +36,18 @@ export default class IngredientGroup extends React.Component {
 		});
 
 		return (
-			<div>
+			<div className="col-md-4">
+			<ul className="list-group">
 				<IngredientTitle title={this.props.title} onChange={this.handleTitleChange} />
+				<button type="button" className="list-group-item active" onClick={this.handleIngredientAdd}>Add New Ingredient</button>
 				{ingLines}
+			</ul>
 			</div>
 		)
 	}
 }
+
+// <div>
+// 	<IngredientTitle title={this.props.title} onChange={this.handleTitleChange} />
+// 	{ingLines}
+// </div>

@@ -14,18 +14,14 @@ export default class InstructionLine extends React.Component {
 
     render() {
         return (
-            <div className="form-inline form-group ingredient-line">
-				<button className="btn btn-danger" type="button"><i onClick={this.handleClick} className="glyphicon glyphicon-remove"></i></button>
+
+            <div className="input-group">
+				<div className="input-group-btn">
+					<button className="btn btn-danger" type="button"><i onClick={this.handleClick} className="glyphicon glyphicon-remove"></i></button>
+				</div>
 				<input type="text" className="form-control" value={this.props.instruction} onChange={this.handleChange} />
 			</div>
-            
+
         )
     }
 }
-
-// <div class="form-inline">
-//                 <div class="form-group">
-//                     <label for="instr">{ this.props.id }. </label>
-//                     <input type="text" className="form-control" id="instr" value={this.props.instruction} />
-//                 </div>
-//             </div>
