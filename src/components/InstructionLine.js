@@ -3,8 +3,12 @@ import React from 'react';
 export default class InstructionLine extends React.Component {
 
     componentDidMount = () => {
-        console.log('mounted')
-        this.instructionInput.focus();
+        // this is being used to determine new instructions
+        // and then focusing on them        
+        if (this.props.instruction.length === 0) {
+            this.instructionInput.focus();
+        }
+
     }
 
     handleClick = () => {
