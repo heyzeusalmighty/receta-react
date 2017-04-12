@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as types from '../reducers/actions'
 import store from '../store';
+import * as recipeApi from '../api/recipe.api';
 
 import IngredientGroup from '../components/IngredientGroup';
 import InstructionLine from '../components/InstructionLine';
@@ -40,13 +41,15 @@ class EditRecipeContainer extends React.Component {
 
 	handleInstructionChange = (instructionId, value) => {
 		let recipe = Object.assign({}, this.state.selectedRecipe);
-		recipe.instructions[instructionId].instruction = value;
+        let instIndex = instructionId - 1;
+		recipe.instructions[instIndex].instruction = value;
 		this.setState({ selectedRecipe: recipe });
 	}
 
 	handleInstructionDelete = (instructionId) => {
 		let recipe = Object.assign({}, this.state.selectedRecipe);
-		recipe.instructions.splice(instructionId, 1);
+        let instructionIndex = instructionId - 1;
+		recipe.instructions.splice(instructionIndex, 1);
 		this.setState({ selectedRecipe: recipe });
 	}
 
@@ -63,7 +66,9 @@ class EditRecipeContainer extends React.Component {
     }
 
     saveEdit = () => {
-        store.dispatch({ type: types.SAVE_EDIT, recipe: this.state.selectedRecipe });
+        // store.dispatch({ type: types.SAVE_EDIT, recipe: this.state.selectedRecipe });
+        recipeApi.saveRecipeEdit(this.state.selectedRecipe);
+        this.props.saveClick();
     }
 
 
@@ -91,7 +96,8 @@ class EditRecipeContainer extends React.Component {
 				id: ins.id,
 				instruction: ins.instruction,
 				instructionChange: this.handleInstructionChange,
-				instructionDelete: this.handleInstructionDelete
+				instructionDelete: this.handleInstructionDelete,
+                instructionAdd: this.handleInstructionAdd
 			};
 
 			return (
@@ -104,7 +110,7 @@ class EditRecipeContainer extends React.Component {
 
 				<div className="row">
 					<div className="col-md-1">
-						<button className="btn btn-success" onClick={() => this.props.saveClick('sweet')}>
+						<button className="btn btn-success" onClick={this.saveEdit}>
 							SAVE
 						</button>
 					</div>
@@ -143,7 +149,6 @@ class EditRecipeContainer extends React.Component {
 					{ instructionsElement }
 
 
-					<input type="submit" className="btn btn-default" value="Submit" />
 				</form>
 			</div>
 		)

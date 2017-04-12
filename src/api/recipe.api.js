@@ -60,6 +60,14 @@ export function addNewRecipe() {
 	})
 }
 
+export function saveRecipeEdit(recipe) {
+	return axios.post('http://localhost:9000/api/recipes', recipe)
+	.then(response => {
+		store.dispatch({ type: types.SAVE_EDIT, recipe: recipe });
+		console.log('response ', response);
+	})
+}
+
 
 // const banh = {
 //     "recipeName": "Banh Xeo (Crepe)",

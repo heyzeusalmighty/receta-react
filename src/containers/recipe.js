@@ -33,8 +33,7 @@ class RecipeContainer extends React.Component {
         this.setState({ showEdit: false });
     }
 
-    saveOnClick = (message) => {
-        console.log('saving => ', message);
+    saveOnClick = (message) => {        
         this.setState({ showEdit: false });
     }
 

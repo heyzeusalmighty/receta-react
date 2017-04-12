@@ -21,5 +21,9 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Support for IE. */
-  font-feature-settings: 'liga';
+  font-feature-settings : 'liga';
+}
+
+.ingredient-line {
+    cursor: pointer;
 }

@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var mongoose = require('mongoose');
-console.log('DB_ADDRESS', config.DB_ADDRESS)
+// console.log('DB_ADDRESS', config.DB_ADDRESS)
 mongoose.connect(config.DB_ADDRESS);
 var db = mongoose.connection;
 mongoose.Promise = global.Promise;
