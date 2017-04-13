@@ -60,8 +60,9 @@ class EditRecipeContainer extends React.Component {
 	}
 
     handleIngredientAdd = (groupId) => {
+        console.log('adding')
         let recipe = Object.assign({}, this.state.selectedRecipe);
-		recipe.ingredients[groupId].ingredients.push('dude');
+		recipe.ingredients[groupId].ingredients.push({ focus: true, ingredient: ''});
 		this.setState({ selectedRecipe: recipe });
     }
 

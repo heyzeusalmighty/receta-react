@@ -26,9 +26,11 @@ export default class IngredientGroup extends React.Component {
 		let ingLines = this.props.ingredients.map((ing, idx) => {
 			let props = {
 				id: idx,
+				ingredient: { focus: false, ingredient: ing},
+				ingredientCount: this.props.ingredients.length,
 				onChange: this.handleIngredientLineChange,
 				ingredientRemoval: this.handleIngredientRemoval,
-				ingredient: ing
+				addIngredient: this.handleIngredientAdd
 			}
 			return (
 				<IngredientLine key={idx} {...props} />

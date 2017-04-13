@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './ingredient-line.css'
 
 export default class IngredientLine extends React.Component {
 
@@ -8,8 +7,12 @@ export default class IngredientLine extends React.Component {
 		this.state = { showInput: false};
 	}
 
+	componentDidMount() {
+		console.log('mounted', this.props.ingredientCount, this.props.id)
+	}
+
 	handleChange = (event) => {
-		console.log('event => ', event)
+		// console.log('event => ', event)
 		this.props.onChange(this.props.id, event.target.value);
 	}
 
@@ -21,11 +24,17 @@ export default class IngredientLine extends React.Component {
 		if (event.keyCode === 9) {
 			event.preventDefault();
 			console.log('it was a tab');
+			// go down to the next one and focus on that
 		}
 		if (event.keyCode === 13) {
 			event.preventDefault();
 			console.log('ay, tis an ENTER key press');
 			this.setState({ showInput: false });
+			// check if its the last one
+			if ((this.props.id + 1) === this.props.ingredientCount) {
+				console.log('this is the last one');
+				this.props.addIngredient();
+			}
 		} else {
 			console.log('keyDown', event.keyCode);
 		}
@@ -48,26 +57,14 @@ export default class IngredientLine extends React.Component {
 
 		let inputElement = <input autoFocus type="text"
 			className="form-control ingredient-line"
-			value={this.props.ingredient}
+			value={this.props.ingredient.ingredient }
 			onChange={this.handleChange}
 			onBlur={this.handleBlur}
 			onKeyDown={this.handleKeyDown} />
-		let displayElement = <div onClick={this.handleClick}>
-								<span className="btn btn-default whoa-button">Whoa</span>
-								<span>{this.props.ingredient}</span>
-							</div>
-
-		let inputGroupDisplay =
-			<div className="input-group">
-				<div className="input-group-btn">
-					<button className="btn btn-danger" type="button">W</button>
-				</div>
-				<span>{this.props.ingredient}</span>
-			</div>
 
 		let stackOverflowAnswer =
 			<div onClick={this.handleClick}>
-				{this.props.ingredient}
+				{this.props.ingredient.ingredient }
 				<span className="pull-right">
 					<span className="btn btn-xs btn-default">
 						<span className="glyphicon glyphicon-remove" onClick={this.handleRemoveClick}></span>
