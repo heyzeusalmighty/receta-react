@@ -4,7 +4,8 @@ export default class IngredientLine extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { showInput: false};
+		this.state = { showInput: this.props.focus };
+
 	}
 
 	componentDidMount() {
@@ -26,6 +27,14 @@ export default class IngredientLine extends React.Component {
 			console.log('it was a tab');
 			// go down to the next one and focus on that
 		}
+
+		if (event.keyCode === 27) {
+			console.log('you pressed escape');
+			if (this.props.ingredient.length === 0) {
+				this.handleRemoveClick();
+			}
+		}
+
 		if (event.keyCode === 13) {
 			event.preventDefault();
 			console.log('ay, tis an ENTER key press');
@@ -55,21 +64,26 @@ export default class IngredientLine extends React.Component {
 
 	render() {
 
+		let style = {
+			color: '#d9534f'
+		}
+
 		let inputElement = <input autoFocus type="text"
 			className="form-control ingredient-line"
-			value={this.props.ingredient.ingredient }
+			value={this.props.ingredient }
 			onChange={this.handleChange}
 			onBlur={this.handleBlur}
 			onKeyDown={this.handleKeyDown} />
 
 		let stackOverflowAnswer =
 			<div onClick={this.handleClick}>
-				{this.props.ingredient.ingredient }
-				<span className="pull-right">
-					<span className="btn btn-xs btn-default">
+
+				<span className="pull-left">
+					<span className="btn btn-xs btn-default" style={style}>
 						<span className="glyphicon glyphicon-remove" onClick={this.handleRemoveClick}></span>
 					</span>
 				</span>
+				{this.props.ingredient }
 			</div>
 
 		return (

@@ -24,13 +24,22 @@ export default class IngredientGroup extends React.Component {
 	render() {
 
 		let ingLines = this.props.ingredients.map((ing, idx) => {
+			let ingredient = ing;
+			let focus = false;
+			if (ing.focus) {
+				console.log('coool man')
+				ingredient = ing.ingredient;
+				focus = true;
+			}
 			let props = {
 				id: idx,
-				ingredient: { focus: false, ingredient: ing},
+				ingredient,
+				focus,
 				ingredientCount: this.props.ingredients.length,
 				onChange: this.handleIngredientLineChange,
 				ingredientRemoval: this.handleIngredientRemoval,
-				addIngredient: this.handleIngredientAdd
+				addIngredient: this.handleIngredientAdd,
+
 			}
 			return (
 				<IngredientLine key={idx} {...props} />
