@@ -20,6 +20,11 @@ export default class IngredientGroup extends React.Component {
 		this.props.addNewIngredient(this.props.id);
 	}
 
+	handleTabChange = (ingredientId) => {
+		console.log('tab tab tab ', ingredientId);
+		this.props.tabChange(this.props.id, ingredientId);
+	}
+
 
 	render() {
 
@@ -27,7 +32,7 @@ export default class IngredientGroup extends React.Component {
 			let ingredient = ing;
 			let focus = false;
 			if (ing.focus) {
-				console.log('coool man')
+				console.log('coool man', idx, ing.ingredient)
 				ingredient = ing.ingredient;
 				focus = true;
 			}
@@ -39,6 +44,7 @@ export default class IngredientGroup extends React.Component {
 				onChange: this.handleIngredientLineChange,
 				ingredientRemoval: this.handleIngredientRemoval,
 				addIngredient: this.handleIngredientAdd,
+				tabChange: this.handleTabChange
 
 			}
 			return (

@@ -9,7 +9,20 @@ export default class IngredientLine extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('mounted', this.props.ingredientCount, this.props.id)
+		// console.log('mounted', this.props.ingredientCount, this.props.id)
+		if (this.props.focus){
+			console.log(this.props.id);
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (!prevProps.focus && this.props.focus) {
+			// console.log('now focus', this.props.focus);
+			
+			this.setState({ showInput: this.props.focus});
+		}
+		// console.log('updated props', prevProps,)
+		// console.log('updated prevState', prevState)
 	}
 
 	handleChange = (event) => {
@@ -22,30 +35,33 @@ export default class IngredientLine extends React.Component {
 	}
 
 	handleKeyDown = (event) => {
+
+		// tab
 		if (event.keyCode === 9) {
 			event.preventDefault();
-			console.log('it was a tab');
+			this.handleBlur();
 			// go down to the next one and focus on that
+			this.props.tabChange(this.props.id);
 		}
 
+		// escape
 		if (event.keyCode === 27) {
-			console.log('you pressed escape');
 			if (this.props.ingredient.length === 0) {
 				this.handleRemoveClick();
+			} else {
+				this.handleBlur();
 			}
 		}
 
+		// enter
 		if (event.keyCode === 13) {
 			event.preventDefault();
-			console.log('ay, tis an ENTER key press');
 			this.setState({ showInput: false });
 			// check if its the last one
 			if ((this.props.id + 1) === this.props.ingredientCount) {
 				console.log('this is the last one');
 				this.props.addIngredient();
 			}
-		} else {
-			console.log('keyDown', event.keyCode);
 		}
 
 	}

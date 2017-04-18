@@ -66,11 +66,22 @@ class EditRecipeContainer extends React.Component {
 		this.setState({ selectedRecipe: recipe });
     }
 
+    handleTabChange = (groupId, ingredientId) => {
+        let nextIngredient = ingredientId + 1;
+        let recipe = Object.assign({}, this.state.selectedRecipe);
+        if (nextIngredient !== recipe.ingredients[groupId].ingredients.length) {
+            let oldIngredient = recipe.ingredients[groupId].ingredients[nextIngredient];
+    		recipe.ingredients[groupId].ingredients[nextIngredient] = ({ focus: true, ingredient: oldIngredient});
+    		this.setState({ selectedRecipe: recipe });
+        } 
+    }
+
     saveEdit = () => {
         // store.dispatch({ type: types.SAVE_EDIT, recipe: this.state.selectedRecipe });
         recipeApi.saveRecipeEdit(this.state.selectedRecipe);
         this.props.saveClick();
     }
+
 
 
 
@@ -84,6 +95,7 @@ class EditRecipeContainer extends React.Component {
         		ingredients: ing.ingredients,
                 ingredientRemoval: this.ingredientRemoval,
                 addNewIngredient: this.handleIngredientAdd,
+                tabChange: this.handleTabChange,
                 title: ing.title
         	}
 
