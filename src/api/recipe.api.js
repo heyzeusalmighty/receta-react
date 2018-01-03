@@ -2,11 +2,7 @@ import axios from 'axios';
 import store from '../store';
 import * as types from '../reducers/actions';
 
-import dummy from './dummyRecipes'
-
-
-
-
+import dummy from './dummyRecipes';
 
 const soManyRecipes = [
 	{
@@ -33,7 +29,7 @@ const soManyRecipes = [
 
 
 export function getRecipes() {
-	// store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: soManyRecipes});
+	// store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: dummy });
 
 	return axios.get('http://localhost:9000/api/recipes')
     .then(response => {
@@ -65,6 +61,13 @@ export function saveRecipeEdit(recipe) {
 	.then(response => {
 		store.dispatch({ type: types.SAVE_EDIT, recipe: recipe });
 		console.log('response ', response);
+	})
+}
+
+export function deleteRecipe(recipe) {
+	return axios.delete(`http://localhost:9000/api/recipes/${recipe._id}`)
+	.then(response => {
+		store.dispatch({ type: types.DELETE_RECIPE, recipe });
 	})
 }
 

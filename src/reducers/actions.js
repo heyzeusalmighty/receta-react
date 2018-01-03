@@ -5,3 +5,5 @@ export const GET_RECIPES_SUCCESS = 'GET_RECIPES_SUCCESS';
 export const SELECT_RECIPE = 'SELECT_RECIPE';
 
 export const SAVE_EDIT = 'SAVE_EDIT';
+
+export const DELETE_RECIPE = 'DELETE_RECIPE';

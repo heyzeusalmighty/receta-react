@@ -9,7 +9,7 @@ var router = express.Router();
 router.get('/', controller.getAllRecipes);
 router.get('/:id', controller.getSingleRecipe);
 router.post('/', controller.saveRecipe);
-router.delete('./:id', controller.deleteRecipe);
+router.delete('/:id', controller.deleteRecipe);
 
 
 module.exports = router;

@@ -5,22 +5,24 @@ import * as recipeApi from '../api/recipe.api';
 // import { Button } from 'react-toolbox/lib/button';
 
 
-const RecipeListContainer = React.createClass({
+class RecipeListContainer extends React.Component {
 
-	componentDidMount: function() {
-		// recipeApi.getRecipes();
-	},
+	constructor(props) {
+		super(props);
+		recipeApi.getRecipes();
+	}
 
-	addNewRecipe: function() {
-		recipeApi.addNewRecipe();
-	},
+	deleteButton = (recipe) => {
+		console.log('delete', recipe);
+		recipeApi.deleteRecipe(recipe);
+	}
 
-  	render: function() {
-    	return (
+	render() {
+		return (
 			<div>
 		  		<h3>Recipes</h3>
 
-			<button className="btn btn-success" onClick={this.addNewRecipe}>ADD</button>
+				<button className="btn btn-success" onClick={this.addNewRecipe}>ADD</button>
 				<table className="table">
 					<tbody>
 					{this.props.recipes.map(rec =>
@@ -28,6 +30,7 @@ const RecipeListContainer = React.createClass({
 							<tr key={rec._id}>
 								<td><Link to={'/recipes/' + rec._id}>{rec.recipeName}</Link></td>
 								<td><button className="btn btn-default">COOL MAN</button></td>
+								<td><button className="btn btn-danger" onClick={() => this.deleteButton(rec)}>X</button></td>
 							</tr>
 						)
 					)}
@@ -35,9 +38,24 @@ const RecipeListContainer = React.createClass({
 				</table>
 			</div>
     	);
-  	}
+	}
+}
 
-});
+// const RecipeListContainer = React.createClass({
+
+// 	componentDidMount: function() {
+// 		recipeApi.getRecipes();
+// 	},
+
+// 	addNewRecipe: function() {
+// 		recipeApi.addNewRecipe();
+// 	},
+
+//   	render: function() {
+    	
+//   	}
+
+// });
 
 const mapStateToProps = function(store) {
   return {

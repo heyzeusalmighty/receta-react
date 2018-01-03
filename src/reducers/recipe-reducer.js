@@ -43,6 +43,16 @@ const recipeReducer = function(state = initialState, action) {
 				]
 			});
 
+		case types.DELETE_RECIPE:
+			let delIdx = _.findIndex(state.recipes, { '_id': action.recipe._id });
+			return Object.assign({}, state, {
+				selectedRecipe: action.recipe,
+			 	recipes: [
+					 ...state.recipes.slice(0, delIdx),
+					 ...state.recipes.slice(delIdx)
+				 ]
+			});
+
 		default:
 			return state;
 	}
