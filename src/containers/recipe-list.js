@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as recipeApi from '../api/recipe.api';
+import * as yummlyApi from '../api/yummly.api';
+import SearchBox from '../components/searchbox';
+import SearchResults from '../components/searchResults';
 // import { Button } from 'react-toolbox/lib/button';
 
 
@@ -10,11 +13,39 @@ class RecipeListContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		recipeApi.getRecipes();
+		this.state = {
+			searching: false,
+			searchTerm: '',
+			searchMatches: []
+		};
 	}
 
 	deleteButton = (recipe) => {
 		console.log('delete', recipe);
 		recipeApi.deleteRecipe(recipe);
+	}
+
+	search = () => {
+		this.setState({ searching: true });
+	}
+
+	searchForThis = (searchString) => {
+		yummlyApi.getSearchResults(searchString)
+		.then(results => {
+			console.log('results', results);
+			this.setState({ searchMatches: results.matches });	
+		});
+	}
+
+	renderSearchArea = () => {
+		if (this.state.searching) {
+			return (
+				<div>
+					<SearchBox searchForThis={this.searchForThis} />
+					<SearchResults matches={this.state.searchMatches} />
+				</div>
+			)
+		}
 	}
 
 	render() {
@@ -23,6 +54,8 @@ class RecipeListContainer extends React.Component {
 		  		<h3>Recipes</h3>
 
 				<button className="btn btn-success" onClick={this.addNewRecipe}>ADD</button>
+				<button className="btn btn-primary" onClick={this.search}>Search</button>
+				{this.renderSearchArea()}
 				<table className="table">
 					<tbody>
 					{this.props.recipes.map(rec =>
@@ -40,22 +73,6 @@ class RecipeListContainer extends React.Component {
     	);
 	}
 }
-
-// const RecipeListContainer = React.createClass({
-
-// 	componentDidMount: function() {
-// 		recipeApi.getRecipes();
-// 	},
-
-// 	addNewRecipe: function() {
-// 		recipeApi.addNewRecipe();
-// 	},
-
-//   	render: function() {
-    	
-//   	}
-
-// });
 
 const mapStateToProps = function(store) {
   return {

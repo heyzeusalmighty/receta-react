@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as types from '../reducers/actions'
-import store from '../store';
 import * as recipeApi from '../api/recipe.api';
 
 import IngredientGroup from '../components/IngredientGroup';
@@ -48,7 +46,7 @@ class EditRecipeContainer extends React.Component {
 
 	handleInstructionDelete = (instructionId) => {
 		let recipe = Object.assign({}, this.state.selectedRecipe);
-        let instructionIndex = instructionId - 1;
+        let instructionIndex = instructionId;
 		recipe.instructions.splice(instructionIndex, 1);
 		this.setState({ selectedRecipe: recipe });
 	}

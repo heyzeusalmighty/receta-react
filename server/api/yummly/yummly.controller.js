@@ -24,31 +24,31 @@ let dummyResponse = require('./dummyResponse');
 exports.nextPage = function(req, res) {
 
 	// doing this right now so I don't hammer the yummly service
-	//res.send(dummyResponse);
+	res.send(dummyResponse);
 
-	var search = req.params.search;
-	var page = req.params.page * resultsBack;
-	var replaced = search.split(' ').join('+');
-	var totes = searchOut + replaced + "&start=" + page;
+	// var search = req.params.search;
+	// var page = req.params.page * resultsBack;
+	// var replaced = search.split(' ').join('+');
+	// var totes = searchOut + replaced + "&start=" + page;
 
-	let requestOptions = {
-		'url' : totes
-	};
-	if(config.usingProxy) {
-		requestOptions.proxy = config.proxyAddress;
-	}
+	// let requestOptions = {
+	// 	'url' : totes
+	// };
+	// if(config.usingProxy) {
+	// 	requestOptions.proxy = config.proxyAddress;
+	// }
 
-	console.log(chalk.blue('you are searching for => '), chalk.green(search));
+	// console.log(chalk.blue('you are searching for => '), chalk.green(search));
 
-	request(requestOptions, (error, response, body) => {
-		if(error) {
-			console.log(chalk.red('Problem with request: ', error.message));
-			res.send('ERROR : ', error.message);
-		}
-		if(!error && response.statusCode == 200) {
-			res.send(JSON.parse(body));
-		}
-	});
+	// request(requestOptions, (error, response, body) => {
+	// 	if(error) {
+	// 		console.log(chalk.red('Problem with request: ', error.message));
+	// 		res.send('ERROR : ', error.message);
+	// 	}
+	// 	if(!error && response.statusCode == 200) {
+	// 		res.send(JSON.parse(body));
+	// 	}
+	// });
 }
 
 exports.show = function(req, res) {
