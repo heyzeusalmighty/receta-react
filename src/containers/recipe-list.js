@@ -5,6 +5,7 @@ import * as recipeApi from '../api/recipe.api';
 import * as yummlyApi from '../api/yummly.api';
 import SearchBox from '../components/searchbox';
 import SearchResults from '../components/searchResults';
+import RecipeModal from '../components/recipe.modal';
 // import { Button } from 'react-toolbox/lib/button';
 
 
@@ -16,7 +17,8 @@ class RecipeListContainer extends React.Component {
 		this.state = {
 			searching: false,
 			searchTerm: '',
-			searchMatches: []
+			searchMatches: [],
+			searchedRecipe: null
 		};
 	}
 
@@ -42,9 +44,22 @@ class RecipeListContainer extends React.Component {
 			return (
 				<div>
 					<SearchBox searchForThis={this.searchForThis} />
-					<SearchResults matches={this.state.searchMatches} />
+					<SearchResults matches={this.state.searchMatches} getRecipe={this.goGetSearchRecipe} />
 				</div>
 			)
+		}
+	}
+
+	goGetSearchRecipe = recipe => {
+		console.log('dudeeeeeee');
+		this.setState({ searchedRecipe: recipe });
+	}
+
+	renderSearchRecipe = () => {
+		if (this.state.searchedRecipe) {
+			return (
+				<RecipeModal />
+			);
 		}
 	}
 
@@ -56,6 +71,7 @@ class RecipeListContainer extends React.Component {
 				<button className="btn btn-success" onClick={this.addNewRecipe}>ADD</button>
 				<button className="btn btn-primary" onClick={this.search}>Search</button>
 				{this.renderSearchArea()}
+				{this.renderSearchRecipe()}
 				<table className="table">
 					<tbody>
 					{this.props.recipes.map(rec =>
