@@ -64,22 +64,26 @@ class RecipeListContainer extends React.Component {
 	}
 
 	render() {
+		const bodyStyle = {
+			marginLeft: '20px'
+		};
 		return (
-			<div>
+			<div style={bodyStyle}>
 		  		<h3>Recipes</h3>
-
-				<button className="btn btn-success" onClick={this.addNewRecipe}>ADD</button>
-				<button className="btn btn-primary" onClick={this.search}>Search</button>
+				<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.addNewRecipe}>ADD</button>
+				<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.search}>Search</button>
 				{this.renderSearchArea()}
 				{this.renderSearchRecipe()}
-				<table className="table">
+				<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 					<tbody>
 					{this.props.recipes.map(rec =>
 						(
 							<tr key={rec._id}>
-								<td><Link to={'/recipes/' + rec._id}>{rec.recipeName}</Link></td>
-								<td><button className="btn btn-default">COOL MAN</button></td>
-								<td><button className="btn btn-danger" onClick={() => this.deleteButton(rec)}>X</button></td>
+								<td className="mdl-data-table__cell--non-numeric">
+									<Link to={'/recipes/' + rec._id}>{rec.recipeName}</Link>
+								</td>
+								<td><button className="mdl-button mdl-js-button mdl-button--raised">COOL MAN</button></td>
+								<td><button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={() => this.deleteButton(rec)}>X</button></td>
 							</tr>
 						)
 					)}

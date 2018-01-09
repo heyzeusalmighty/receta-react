@@ -117,16 +117,16 @@ class EditRecipeContainer extends React.Component {
 		})
 
 		return (
-			<div className="panel-body">
+			<div className="mdl-card mdl-shadow--2dp">
 
 				<div className="row">
 					<div className="col-md-1">
-						<button className="btn btn-success" onClick={this.saveEdit}>
+						<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.saveEdit}>
 							SAVE
 						</button>
 					</div>
 					<div className="col-md-1">
-						<button className="btn btn-danger" onClick={() => this.props.cancelClick('coo')}>
+						<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={() => this.props.cancelClick('coo')}>
 							CANCEL
 						</button>
 					</div>

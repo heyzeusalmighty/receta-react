@@ -1,16 +1,22 @@
 import React from 'react';
 
 
+const cardStyle = {
+	width: 'calc(100% - 80px)',
+	margin: '1em 20px 2em 20px'
+};
+
 const RecipeView = (props) => (
-	<div className="panel-body">
+	<div className="mdl-card mdl-shadow--2dp" style={cardStyle}>
 
-		<button className="btn btn-default" onClick={props.goBack}>Back</button>
-		<button className="btn btn-primary" onClick={() => props.editClick('cool man')}>Edit</button>
+		<div className="mdl-card__title">
+			<h2 className="mdl-card__title-text">{props.selectedRecipe.recipeName}</h2>
+		</div>
 
-		<dl className="dl-horizontal">
-			<dt>Description</dt>
-			<dd>{props.selectedRecipe.description}</dd>
-		</dl>
+		<div class="mdl-card__supporting-text">
+			{props.selectedRecipe.description}
+		</div>
+
 		<dl className="dl-horizontal">
 			<dt>Serving Size</dt>
 			<dd>{props.selectedRecipe.servingSize}</dd>
@@ -47,6 +53,8 @@ const RecipeView = (props) => (
 		))}
 		</div>
 
+		https://www.youtube.com/watch?v=XDvZrubaEwA
+
 		<h4>Instructions</h4>
 		<ol>
 			{ props.instructions.map(ins => (
@@ -55,6 +63,13 @@ const RecipeView = (props) => (
 				</li>
 			))}
 		</ol>
+		<div class="mdl-card__actions mdl-card--border">
+			<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={props.goBack}>Back</button>
+			<button 
+				className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" 
+				onClick={() => props.editClick('cool man')}
+			>Edit</button>
+		</div>
 	</div>
 )
 
