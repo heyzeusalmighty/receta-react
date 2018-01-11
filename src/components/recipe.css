@@ -1,0 +1,15 @@
+.ingredient-line {
+    cursor: pointer;
+}
+
+.button-bar {
+  margin-bottom: 10px;
+}
+
+.recipe-list-button {
+  margin-right: 10px;
+}
+
+.recipe-row {
+  cursor: pointer;
+}

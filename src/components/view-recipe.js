@@ -13,57 +13,59 @@ const RecipeView = (props) => (
 			<h2 className="mdl-card__title-text">{props.selectedRecipe.recipeName}</h2>
 		</div>
 
-		<div class="mdl-card__supporting-text">
+		<div className="mdl-card__supporting-text">
 			{props.selectedRecipe.description}
-		</div>
 
-		<dl className="dl-horizontal">
-			<dt>Serving Size</dt>
-			<dd>{props.selectedRecipe.servingSize}</dd>
-		</dl>
-		<dl className="dl-horizontal">
-			<dt>Source</dt>
-			<dd>{props.selectedRecipe.source}</dd>
-		</dl>
-		<dl className="dl-horizontal">
-			<dt>Source URl</dt>
-			<dd>{props.selectedRecipe.sourceUrl}</dd>
-		</dl>
-		<dl className="dl-horizontal">
-			<dt>Image URL</dt>
-			<dd>{props.selectedRecipe.imageUrl}</dd>
-		</dl>
+			<dl className="dl-horizontal">
+				<dt>Serving Size</dt>
+				<dd>{props.selectedRecipe.servingSize}</dd>
+			</dl>
+			<dl className="dl-horizontal">
+				<dt>Source</dt>
+				<dd>{props.selectedRecipe.source}</dd>
+			</dl>
+			<dl className="dl-horizontal">
+				<dt>Source URl</dt>
+				<dd>{props.selectedRecipe.sourceUrl}</dd>
+			</dl>
+			<dl className="dl-horizontal">
+				<dt>Image URL</dt>
+				<dd>{props.selectedRecipe.imageUrl}</dd>
+			</dl>
 
-		<h5>Tags</h5>
-		{props.tags.map(tag => (
-			<span className="label label-primary" key={tag}>{tag}</span>
-		))}
-
-		<h4>Ingredients</h4>
-		<div className="row">
-		{ props.ingredients.map(ing => (
-			<div className="col-md-4" key={ing._id}>
-				<ul className="list-group" >
-					<li className="list-group-item active">{ing.title}</li>
-					{ing.ingredients.map((ingredient, idx) => (
-						<li className="list-group-item" key={idx + ingredient}>{ingredient}</li>
-					))}
-				</ul>
-			</div>
-		))}
-		</div>
-
-		https://www.youtube.com/watch?v=XDvZrubaEwA
-
-		<h4>Instructions</h4>
-		<ol>
-			{ props.instructions.map(ins => (
-				<li key={ins.id}>
-					{ ins.instruction }
-				</li>
+			<h5>Tags</h5>
+			{props.tags.map(tag => (
+				<span className="label label-primary" key={tag}>{tag}</span>
 			))}
-		</ol>
-		<div class="mdl-card__actions mdl-card--border">
+
+			<h4>Ingredients</h4>
+			<div className="row">
+			{ props.ingredients.map(ing => (
+				<div className="col-md-4" key={ing._id}>
+					<ul className="list-group" >
+						<li className="list-group-item active">{ing.title}</li>
+						{ing.ingredients.map((ingredient, idx) => (
+							<li className="list-group-item" key={idx + ingredient}>{ingredient}</li>
+						))}
+					</ul>
+				</div>
+			))}
+			</div>
+			
+			<h4>Instructions</h4>
+			<ol>
+				{ props.instructions.map(ins => (
+					<li key={ins.id}>
+						{ ins.instruction }
+					</li>
+				))}
+			</ol>
+
+
+		</div>
+
+		
+		<div className="mdl-card__actions mdl-card--border">
 			<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={props.goBack}>Back</button>
 			<button 
 				className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" 

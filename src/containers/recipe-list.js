@@ -6,7 +6,7 @@ import * as yummlyApi from '../api/yummly.api';
 import SearchBox from '../components/searchbox';
 import SearchResults from '../components/searchResults';
 import RecipeModal from '../components/recipe.modal';
-// import { Button } from 'react-toolbox/lib/button';
+import '../components/recipe.css';
 
 
 class RecipeListContainer extends React.Component {
@@ -67,18 +67,21 @@ class RecipeListContainer extends React.Component {
 		const bodyStyle = {
 			marginLeft: '20px'
 		};
+
 		return (
 			<div style={bodyStyle}>
 		  		<h3>Recipes</h3>
-				<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.addNewRecipe}>ADD</button>
-				<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.search}>Search</button>
+				<div className="button-bar">
+					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored recipe-list-button" onClick={this.addNewRecipe}>ADD</button>
+					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.search}>Search</button>
+				</div>
 				{this.renderSearchArea()}
 				{this.renderSearchRecipe()}
 				<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 					<tbody>
 					{this.props.recipes.map(rec =>
 						(
-							<tr key={rec._id}>
+							<tr key={rec._id} className="recipe-row">
 								<td className="mdl-data-table__cell--non-numeric">
 									<Link to={'/recipes/' + rec._id}>{rec.recipeName}</Link>
 								</td>
