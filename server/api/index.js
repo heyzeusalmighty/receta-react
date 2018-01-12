@@ -27,6 +27,7 @@ module.exports = function(app) {
     app.use('/api/recipes', require('./recipe'));
     app.use('/api/tags', require('./tags'));
     app.use('/api/yummly', require('./yummly'));
+    app.use('/api/scrape', require('./scrape'));
 
 
     // all other routes are handled by Angular

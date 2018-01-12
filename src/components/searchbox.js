@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 let searchString;
 
@@ -11,18 +12,27 @@ const handleKeyDown = (event, searchForThis) => {
     }
 }
 
-const SearchBox = ({ searchForThis }) => {
+const SearchBox = ({ searchForThis, placeholder }) => {
     return (
         <div className="form-group">
             <label htmlFor="exampleInputEmail1">Search for things</label>
             <input
                 className="form-control" 
                 id="exampleInputEmail1" 
-                placeholder="Recipe?"
+                placeholder={placeholder}
                 ref={ el => searchString = el }
                 onKeyDown={(event) => handleKeyDown(event, searchForThis)}  />
         </div>
     );
+}
+
+SearchBox.propTypes = {
+    searchForThis: PropTypes.func.isRequired,
+    placeholder: PropTypes.string
+};
+
+SearchBox.defaultProps = {
+    placeholder: 'Recipe?'
 }
 
 export default SearchBox;

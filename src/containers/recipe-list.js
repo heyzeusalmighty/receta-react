@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as recipeApi from '../api/recipe.api';
 import * as yummlyApi from '../api/yummly.api';
+import * as scrapeApi from '../api/scrape.api';
 import SearchBox from '../components/searchbox';
 import SearchResults from '../components/searchResults';
 import RecipeModal from '../components/recipe.modal';
@@ -18,7 +19,8 @@ class RecipeListContainer extends React.Component {
 			searching: false,
 			searchTerm: '',
 			searchMatches: [],
-			searchedRecipe: null
+			searchedRecipe: null,
+			scraping: false
 		};
 	}
 
@@ -63,6 +65,31 @@ class RecipeListContainer extends React.Component {
 		}
 	}
 
+	scrape = () => {
+		console.log('scraping');
+		this.setState({ scraping: true });
+	}
+
+	scrapeForThis = (url) => {
+		console.log('searching', url);
+		scrapeApi.getSearchResults(url)
+		.then(resp => {
+			console.log('resp :: ', resp);
+		})
+	}
+
+	renderScrapeArea = () => {
+		if (this.state.scraping) {
+			console.log('its true')
+			return (
+				<div>
+					<SearchBox searchForThis={this.scrapeForThis} placeholder={'Url?'} />
+				</div>
+			);
+		}
+		console.log('nope')
+	}
+
 	render() {
 		const bodyStyle = {
 			marginLeft: '20px'
@@ -74,9 +101,11 @@ class RecipeListContainer extends React.Component {
 				<div className="button-bar">
 					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored recipe-list-button" onClick={this.addNewRecipe}>ADD</button>
 					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.search}>Search</button>
+					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.scrape}>Scrape</button>
 				</div>
 				{this.renderSearchArea()}
 				{this.renderSearchRecipe()}
+				{this.renderScrapeArea()}
 				<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 					<tbody>
 					{this.props.recipes.map(rec =>
