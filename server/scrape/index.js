@@ -8,6 +8,8 @@ exports.scrapeByUrl = function(url, cb) {
 	return scrape(url, cb);
 }
 
+
+
 function scrape(url, cb) {
 	let requestOptions = {
 		'url' : url
@@ -46,8 +48,6 @@ function scrape(url, cb) {
 						insCounter++;
 					}
 				}
-				//cb(directions);
-
 			}
 
 			if(url.indexOf('myrecipes.com') > -1) {
