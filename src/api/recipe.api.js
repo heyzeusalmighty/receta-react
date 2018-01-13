@@ -70,3 +70,11 @@ export function deleteRecipe(recipe) {
 		store.dispatch({ type: types.DELETE_RECIPE, recipe });
 	})
 }
+
+export function snapshot() {
+	return axios.post('http://localhost:9000/api/snapshot')
+	.then(response => {
+		// store.dispatch({ type: types.SAVE_EDIT, recipe: recipe })
+		console.log('response ', response);
+	})
+}

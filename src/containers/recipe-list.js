@@ -65,6 +65,10 @@ class RecipeListContainer extends React.Component {
 		}
 	}
 
+	snapshot = () => {
+		recipeApi.snapshot();
+	}
+
 	scrape = () => {
 		console.log('scraping');
 		this.setState({ scraping: true });
@@ -102,6 +106,7 @@ class RecipeListContainer extends React.Component {
 					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored recipe-list-button" onClick={this.addNewRecipe}>ADD</button>
 					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.search}>Search</button>
 					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.scrape}>Scrape</button>
+					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.snapshot}>Snapshot</button>
 				</div>
 				{this.renderSearchArea()}
 				{this.renderSearchRecipe()}
