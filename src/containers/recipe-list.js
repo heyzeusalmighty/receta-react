@@ -109,13 +109,17 @@ class RecipeListContainer extends React.Component {
 				<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 					<tbody>
 					{this.props.recipes.map(rec =>
-						(
+						(	
 							<tr key={rec._id} className="recipe-row">
+							
 								<td className="mdl-data-table__cell--non-numeric">
-									<Link to={'/recipes/' + rec._id}>{rec.recipeName}</Link>
+									<Link to={'/recipes/' + rec._id}>
+										{rec.recipeName}
+									</Link>
 								</td>
 								<td><button className="mdl-button mdl-js-button mdl-button--raised">COOL MAN</button></td>
 								<td><button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={() => this.deleteButton(rec)}>X</button></td>
+								
 							</tr>
 						)
 					)}

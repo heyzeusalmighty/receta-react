@@ -64,7 +64,11 @@ const RecipeView = (props) => (
 
 		</div>
 
-		
+		<div className="mdl-card__menu">
+			<button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i className="material-icons">clear</i>
+			</button>
+		</div>
 		<div className="mdl-card__actions mdl-card--border">
 			<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={props.goBack}>Back</button>
 			<button 
