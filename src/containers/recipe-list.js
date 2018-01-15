@@ -99,14 +99,18 @@ class RecipeListContainer extends React.Component {
 			marginLeft: '20px'
 		};
 
+		const buttonStyle = {
+			marginRight: '5px'
+		};
+
 		return (
 			<div style={bodyStyle}>
 		  		<h3>Recipes</h3>
-				<div className="button-bar">
-					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored recipe-list-button" onClick={this.addNewRecipe}>ADD</button>
-					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.search}>Search</button>
-					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.scrape}>Scrape</button>
-					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.snapshot}>Snapshot</button>
+				<div className="mdl-grid">
+					<button style={buttonStyle} className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored recipe-list-button" onClick={this.addNewRecipe}>ADD</button>
+					<button style={buttonStyle} className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.search}>Search</button>
+					<button style={buttonStyle} className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.scrape}>Scrape</button>
+					<button style={buttonStyle} className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={this.snapshot}>Snapshot</button>
 				</div>
 				{this.renderSearchArea()}
 				{this.renderSearchRecipe()}

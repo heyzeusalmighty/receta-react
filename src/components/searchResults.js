@@ -5,21 +5,26 @@ const buttonClick = (id, getRecipe) => {
 }
 
 const SingleRecipe = (recipe, getRecipe) => {
-    console.log(recipe.recipe)
     const { imageUrlsBySize, recipeName, sourceDisplayName, id } = recipe.recipe;
+    const listStyle = { height: '90px'};
+    const picStyle = { height: '90px', width: '90px', borderRadius: 0 };
     return (
-        <div className="col-sm-6 col-md-4">
-            <div className="thumbnail">
-                <img src={imageUrlsBySize[90]} alt="..." />
-                <div className="caption">
-                    <h3>{recipeName}</h3>
-                    <p><i>{sourceDisplayName}</i></p>
-                    <p>
-                        <button className="btn btn-default" onClick={() => buttonClick(id)}>Button</button>
-                    </p>
-                </div>
-            </div>
-        </div>
+        <li className="mdl-list__item mdl-list__item--three-line" style={listStyle}>
+            <span className="mdl-list__item-primary-content">
+                <img src={imageUrlsBySize[90]} alt="..." className="mdl-list__item-avatar" style={picStyle} />
+                <span>{recipeName}</span>
+                <span className="mdl-list__item-text-body">
+                    {sourceDisplayName}
+                </span>
+            </span>
+            <span className="mdl-list__item-secondary-content">
+                <span className="mdl-list__item-secondary-action" href="#">
+                    <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                        <i className="material-icons">star</i>
+                    </button>
+                </span>
+            </span>
+        </li>
     )
 }
 
@@ -42,13 +47,16 @@ const SingleListItem = ({recipe, getRecipe}) => {
 
 const SearchResults = ({ matches, getRecipe }) => {
     matches = matches || [];
+    const resultStyle = { maxWidth: '600px'}
     return (
-        <div>
-            <div className="list-group">
-                { matches.map(r => (
-                    <SingleListItem recipe={r} key={r.recipeName} getRecipe={getRecipe} />
-                ))}
-            </div>
+        <div style={resultStyle}>
+            <ul className='mdl-list'>
+                {
+                    matches.map(r => (
+                        <SingleRecipe recipe={r} key={r.recipeName} getRecipe={getRecipe} />
+                    ))
+                }
+            </ul>
         </div>
     );
 }
