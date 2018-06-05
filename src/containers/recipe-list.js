@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import * as recipeApi from '../api/recipe.api';
 import * as yummlyApi from '../api/yummly.api';
 import * as scrapeApi from '../api/scrape.api';
@@ -103,6 +104,8 @@ class RecipeListContainer extends React.Component {
 			marginRight: '5px'
 		};
 
+		// const recipes = (this.props.recipes)
+
 		return (
 			<div style={bodyStyle}>
 		  		<h3>Recipes</h3>
@@ -117,12 +120,12 @@ class RecipeListContainer extends React.Component {
 				{this.renderScrapeArea()}
 				<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 					<tbody>
-					{this.props.recipes.map(rec =>
+					{this.props.recipes.map((rec, idx) =>
 						(	
-							<tr key={rec._id} className="recipe-row">
+							<tr key={idx} className="recipe-row">
 							
 								<td className="mdl-data-table__cell--non-numeric">
-									<Link to={'/recipes/' + rec._id}>
+									<Link to={`/recipes/${rec._id}`}>
 										{rec.recipeName}
 									</Link>
 								</td>
@@ -137,6 +140,14 @@ class RecipeListContainer extends React.Component {
 			</div>
     	);
 	}
+}
+
+RecipeListContainer.propTypes = {
+	recipes: PropTypes.array,
+};
+
+RecipeListContainer.defaultProps = {
+	recipes: [],
 }
 
 const mapStateToProps = function(store) {

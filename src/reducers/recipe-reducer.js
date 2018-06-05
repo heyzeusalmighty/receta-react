@@ -18,12 +18,13 @@ const dummyRecipe = {
 const recipeReducer = function(state = initialState, action) {
 	switch(action.type) {
 		case types.GET_RECIPES_SUCCESS:
+			const mappedRecipe = action.recipes.map((x, idx) => ({ ...x, _id: idx }))
 			if (state.recipeId.length === 0) {
-				return Object.assign({}, state, { recipes: action.recipes });
+				return Object.assign({}, state, { recipes: mappedRecipe });
 			} else {
 				let idx = _.findIndex(action.recipes, { '_id': state.recipeId });
 				let recipe = (idx > -1) ? action.recipes[idx] : dummyRecipe;
-				return Object.assign({}, state, { recipes: action.recipes, selectedRecipe: recipe });
+				return Object.assign({}, state, { recipes: mappedRecipe, selectedRecipe: recipe });
 			}
 
 

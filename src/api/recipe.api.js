@@ -43,7 +43,7 @@ export function getRecipes() {
 	return axios.get('https://rawgit.com/heyzeusalmighty/receta-react/master/server/api/static.json')
 	.then(response => {
 		console.log(response)
-		store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: JSON.parse(response.data) });
+		store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: response.data });
 		return response;
     });
 }

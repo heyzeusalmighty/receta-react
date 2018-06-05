@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router-dom';
 import store from '../store';
 import * as types from '../reducers/actions';
 import ViewRecipe from '../components/view-recipe'
@@ -14,8 +14,9 @@ class RecipeContainer extends React.Component {
             selectedRecipe: { recipeName: ''},
             showEdit: false
         };
-
-        let recipeId = this.props.params.recipeId;
+        const { match } = props;
+        const { params } = match;
+        const { recipeId } = params;
         store.dispatch({ type: types.SELECT_RECIPE, recipeId: recipeId });
 
         // this.editOnClick = this.editOnClick.bind(this);
@@ -68,7 +69,7 @@ class RecipeContainer extends React.Component {
                         ingredients={ingredients}
                         tags={tags}
                         editClick={this.editOnClick}
-                        goBack={browserHistory.goBack} />
+                        goBack={this.props.history.goBack} />
                 }
             </div>
         );
