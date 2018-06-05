@@ -40,8 +40,8 @@ const RecipeView = (props) => (
 
 			<h4>Ingredients</h4>
 			<div className="row">
-			{ props.ingredients.map(ing => (
-				<div className="col-md-4" key={ing._id}>
+			{ props.ingredients.map((ing, index) => (
+				<div className="col-md-4" key={index}>
 					<ul className="list-group" >
 						<li className="list-group-item active">{ing.title}</li>
 						{ing.ingredients.map((ingredient, idx) => (

@@ -29,9 +29,20 @@ const recipeReducer = function(state = initialState, action) {
 
 
 		case types.SELECT_RECIPE:
-			let idx = _.findIndex(state.recipes, { '_id': action.recipeId});
-			let recipe = (idx > -1) ? state.recipes[idx] : dummyRecipe;
-			return Object.assign({}, state, { selectedRecipe: recipe, recipeId: action.recipeId });
+			const recipeId = parseInt(action.recipeId, 10);
+			const recipe = state.recipes.find(x => x._id === recipeId);
+			if (recipe) {
+				return {
+					...state,
+					selectedRecipe: recipe,
+					recipeId: recipeId,
+				};
+			}
+			return {
+				...state,
+				selectedRecipe: dummyRecipe,
+				recipeId: recipeId,
+			}
 
 		case types.SAVE_EDIT:
 			let editIdx = _.findIndex(state.recipes, { '_id': action.recipe._id });
