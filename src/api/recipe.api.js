@@ -27,13 +27,23 @@ const soManyRecipes = [
 	},
 ]
 
+var config = {
+    headers: {
+		'Access-Control-Allow-Origin': '*',
+		'Content-Type': 'application/json',
+	}
+};
+
 
 export function getRecipes() {
 	// store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: dummy });
 
-	return axios.get('http://localhost:9000/api/recipes')
-    .then(response => {
-		store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: response.data.recipes });
+	// return axios.get('http://localhost:9000/api/recipes')
+	// return axios.get('https://raw.githubusercontent.com/heyzeusalmighty/receta-react/master/server/api/static.json?callback=?', config)
+	return axios.get('https://rawgit.com/heyzeusalmighty/receta-react/master/server/api/static.json')
+	.then(response => {
+		console.log(response)
+		store.dispatch({ type: types.GET_RECIPES_SUCCESS, recipes: JSON.parse(response.data) });
 		return response;
     });
 }
